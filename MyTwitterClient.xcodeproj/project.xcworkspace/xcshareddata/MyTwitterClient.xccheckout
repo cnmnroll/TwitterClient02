@@ -10,6 +10,8 @@
 	<string>MyTwitterClient</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
+		<key>1427569314F4B8727E70842F89967788718E983D</key>
+		<string>https://github.com/RenMatsuoka/TwitterClient02.git</string>
 		<key>9D1FF2DD6A7DD83DBEFAD2310F98BC2012757978</key>
 		<string>https://github.com/RenMatsuoka/MyTwitterClient.git</string>
 	</dict>
@@ -17,15 +19,17 @@
 	<string>MyTwitterClient.xcodeproj</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
-		<key>9D1FF2DD6A7DD83DBEFAD2310F98BC2012757978</key>
+		<key>1427569314F4B8727E70842F89967788718E983D</key>
 		<string>../..</string>
+		<key>9D1FF2DD6A7DD83DBEFAD2310F98BC2012757978</key>
+		<string>../../../MyTwitterClient</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
-	<string>https://github.com/RenMatsuoka/MyTwitterClient.git</string>
+	<string>https://github.com/RenMatsuoka/TwitterClient02.git</string>
 	<key>IDESourceControlProjectVersion</key>
 	<integer>111</integer>
 	<key>IDESourceControlProjectWCCIdentifier</key>
-	<string>9D1FF2DD6A7DD83DBEFAD2310F98BC2012757978</string>
+	<string>1427569314F4B8727E70842F89967788718E983D</string>
 	<key>IDESourceControlProjectWCConfigurations</key>
 	<array>
 		<dict>
@@ -35,6 +39,14 @@
 			<string>9D1FF2DD6A7DD83DBEFAD2310F98BC2012757978</string>
 			<key>IDESourceControlWCCName</key>
 			<string>MyTwitterClient</string>
+		</dict>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>1427569314F4B8727E70842F89967788718E983D</string>
+			<key>IDESourceControlWCCName</key>
+			<string>TwitterClient02</string>
 		</dict>
 	</array>
 </dict>

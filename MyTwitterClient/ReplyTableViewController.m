@@ -244,4 +244,15 @@
     }
 }
 
+- (void)onRefresh:(id)sender
+{
+    // 更新開始
+    [self.refreshControl beginRefreshing];
+    
+    // 更新処理をここに記述
+    [self getRequest];
+    // 更新終了
+    [self.refreshControl endRefreshing];
+}
+
 @end
