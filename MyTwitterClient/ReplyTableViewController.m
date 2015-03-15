@@ -89,7 +89,7 @@
     ACAccount *account = [accountStore accountWithIdentifier:self.dataManager.identifier];
     
     NSURL *url = [NSURL URLWithString:@"https://api.twitter.com/1.1/statuses/mentions_timeline.json"];
-    NSDictionary *params = @{@"count" : @"10",
+    NSDictionary *params = @{@"count" : @"200",
                              @"trim_user" : @"0",
                              @"include_entities" : @"0"};
     SLRequest *request = [SLRequest requestForServiceType:SLServiceTypeTwitter
@@ -139,7 +139,7 @@
 
 /*------------------------------------------------------------------------------ Twitter 設定ここまで ------------------------------------------------------------------------------*/
 
-/*------------------------------------------------------------------------------ TimeLine 設定ここから ------------------------------------------------------------------------------*/
+/*------------------------------------------------------------------------------ Cell 設定ここから ------------------------------------------------------------------------------*/
 - (UITableViewCell *)tableView:(UITableView *)tableView
          cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -196,26 +196,11 @@
     return tweetTextLabelHeight + 35;
 }
 
-#pragma mark - Table view data source
 
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    //#warning Potentially incomplete method implementation.
-    // Return the number of sections.
-    return 1;
-}
+/*------------------------------------------------------------------------------ Cell 設定ここまで ------------------------------------------------------------------------------*/
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    //#warning Incomplete method implementation.
-    // Return the number of rows in the section.
-    if(!self.dataManager.timeLineData){
-        return 1;
-    } else {
-        return self.dataManager.timeLineData.count;
-    }
-}
-
-
-
+/*------------------------------------------------------------------------------ 更新処理 ここから ------------------------------------------------------------------------------*/
+//pullDown 再読み込み
 - (void)onRefresh:(id)sender
 {
     // 更新開始
@@ -227,8 +212,11 @@
     [self.refreshControl endRefreshing];
 }
 
+//self.dataManeger.identifierの値が変わった時(アカウント変更)
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
     [self getRequest];
     NSLog(@"KVO");
 }
+
+/*------------------------------------------------------------------------------ 更新処理 ここまで ------------------------------------------------------------------------------*/
 @end
