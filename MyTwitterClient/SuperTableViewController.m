@@ -19,6 +19,7 @@
     [super viewDidLoad];
     AppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
     self.dataManager = appDelegate.dataManager;
+    [appDelegate.dataManager addObserver:self forKeyPath:@"identifier" options:0 context:NULL];
     
     UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init];
     [refreshControl addTarget:self action:@selector(onRefresh:) forControlEvents:UIControlEventValueChanged];
@@ -130,7 +131,21 @@
     [self.navigationController pushViewController:detailViewController animated:YES];
     
 }
-
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    //self.dataManager.accountChange = @[@"1", @"1"];
+    if (self.dataManager.twitterAccounts.count > 0) {
+        if (buttonIndex != self.dataManager.twitterAccounts.count) {
+            ACAccount *account = self.dataManager.twitterAccounts[buttonIndex];
+            self.dataManager.identifier = account.identifier;
+            self.dataManager.accountDisplayLabel.text = account.username;
+            NSLog(@"Account set! %@", account.username);
+        }
+        else {
+            NSLog(@"cancel!");
+        }
+    }
+}
 /*------------------------------------------------------------------------------ ButtonAction 設定ここまで ------------------------------------------------------------------------------*/
 
 @end

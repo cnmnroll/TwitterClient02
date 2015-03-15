@@ -35,18 +35,6 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-
-    //NSLog(@"bbbbbbbbbbbbbbbbbbbbbbbbbbbb");
-    [self.tableView deselectRowAtIndexPath:[self.tableView indexPathForSelectedRow] animated:NO];
-    
-    if([self.dataManager.accountChange[1]  isEqual: @1]){
-        NSLog(@"AccountChange");
-        [self getRequest];
-        self.dataManager.accountChange[1] = @0;
-    }
-    
-    
-    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -226,23 +214,7 @@
     }
 }
 
-- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
-{
-    //self.dataManager.accountChange = @[@"1", @"1"];
-    if (self.dataManager.twitterAccounts.count > 0) {
-        if (buttonIndex != self.dataManager.twitterAccounts.count) {
-            self.dataManager.accountChange = [@[@1, @0]mutableCopy];
-            ACAccount *account = self.dataManager.twitterAccounts[buttonIndex];
-            self.dataManager.identifier = account.identifier;
-            self.dataManager.accountDisplayLabel.text = account.username;
-            NSLog(@"Account set! %@", account.username);
-            [self getRequest]; //アカウント更新
-        }
-        else {
-            NSLog(@"cancel!");
-        }
-    }
-}
+
 
 - (void)onRefresh:(id)sender
 {
@@ -255,4 +227,8 @@
     [self.refreshControl endRefreshing];
 }
 
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
+    [self getRequest];
+    NSLog(@"KVO");
+}
 @end

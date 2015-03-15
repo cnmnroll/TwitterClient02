@@ -22,13 +22,6 @@
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:true];
-    //ナビゲーションバー設定
-    //[self.tableView reloadData]
-    if([self.dataManager.accountChange[0]  isEqual: @1]){
-        NSLog(@"AccountChangeT");
-        [self getRequest];
-        self.dataManager.accountChange[0] = @0;
-    }
 }
 
 - (void)viewDidLoad {
@@ -253,24 +246,6 @@
 
 /*------------------------------------------------------------------------------ Cell 設定ここまで ------------------------------------------------------------------------------*/
 
-- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
-{
-    
-    if (self.dataManager.twitterAccounts.count > 0) {
-        if (buttonIndex != self.dataManager.twitterAccounts.count) {
-            self.dataManager.accountChange = [@[@0, @1]mutableCopy];
-            ACAccount *account = self.dataManager.twitterAccounts[buttonIndex];
-            self.dataManager.identifier = account.identifier;
-            self.dataManager.accountDisplayLabel.text = account.username;
-            NSLog(@"Account set! %@", account.username);
-            
-            [self getRequest]; //アカウント更新
-        }
-        else {
-            NSLog(@"cancel!");
-        }
-    }
-}
 
 - (void)onRefresh:(id)sender
 {
@@ -281,6 +256,10 @@
     [self getRequest];
     // 更新終了
     [self.refreshControl endRefreshing];
+}
+
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
+    [self getRequest];
 }
 
 @end
