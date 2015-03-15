@@ -8,11 +8,9 @@
 
 #import "SuperTableViewController.h"
 //セル取得数
-#define ONCEREAD 40
 
 @interface SuperTableViewController ()
 
-@property NSInteger update;
 @property NSInteger viewingPage;
 @property (strong, nonatomic) UIActivityIndicatorView *underIndicator;
 @end
@@ -81,17 +79,6 @@
     return 1;
 }
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    //#warning Incomplete method implementation.
-    // Return the number of rows in the section.
-    
-    if(!self.dataManager.timeLineData){
-        return 1;
-    } else {
-        return _update * ONCEREAD;
-    }
-}
-
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {//セルクリックした時
     //行とセクション取り出す
@@ -145,7 +132,7 @@
 
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
 {
-
+    
     if (self.dataManager.twitterAccounts.count > 0) {
         if (buttonIndex != self.dataManager.twitterAccounts.count) {
             ACAccount *account = self.dataManager.twitterAccounts[buttonIndex];

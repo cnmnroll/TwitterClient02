@@ -17,11 +17,14 @@
 #import "TimeLineCell.h"
 #import "DetailViewController.h"
 
+#define ONCEREAD 30
+
 @interface SuperTableViewController : UITableViewController {
     DataManager *_dataManeger;
     
 }
 
+@property NSInteger update;
 @property (nonatomic, retain) DataManager *dataManager;
 @property UIBarButtonItem *tweetActionButton;
 @property (nonatomic, strong) ACAccountStore *accountStore;

@@ -26,7 +26,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+
     self.navigationItem.title = @"TimeLine";
     
     [self.tableView registerClass:[TimeLineCell class] forCellReuseIdentifier:@"TimeLineCell"];
@@ -145,7 +145,7 @@
 
 /*------------------------------------------------------------------------------ Twitter 設定ここまで ------------------------------------------------------------------------------*/
 
-/*------------------------------------------------------------------------------ Cell 設定ここから ------------------------------------------------------------------------------*/
+/*------------------------------------------------------------------------------ TimeLine 設定ここから ------------------------------------------------------------------------------*/
 - (UITableViewCell *)tableView:(UITableView *)tableView
          cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -198,6 +198,9 @@
     return cell;
 }
 
+/*------------------------------------------------------------------------------ TimeLine 設定ここまで ------------------------------------------------------------------------------*/
+/*------------------------------------------------------------------------------ Cell 設定ここから ------------------------------------------------------------------------------*/
+
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     NSString *tweetText = self.dataManager.timeLineData[indexPath.row][@"text"];
@@ -206,11 +209,26 @@
 }
 
 
-/*------------------------------------------------------------------------------ Cell設定 ここまで ------------------------------------------------------------------------------*/
+//Cell(Tweet)内容詳細表示
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    //#warning Incomplete method implementation.
+    // Return the number of rows in the section.
+    
+    if(!self.dataManager.timeLineData){
+        return 1;
+    } else {
+                if(self.dataManager.timeLineData.count >= self.update * ONCEREAD){
+                    return self.update * ONCEREAD;
+                } else {
+                    return (self.update * ONCEREAD) - (self.update * ONCEREAD - self.dataManager.timeLineData.count);
+                }
+    }
+}
+
+/*------------------------------------------------------------------------------ Cell 設定ここまで ------------------------------------------------------------------------------*/
 
 
-/*------------------------------------------------------------------------------ 更新処理 ここから ------------------------------------------------------------------------------*/
-//pullDown 再読み込み
 - (void)onRefresh:(id)sender
 {
     // 更新開始
@@ -222,12 +240,9 @@
     [self.refreshControl endRefreshing];
 }
 
-//self.dataManeger.identifierの値が変わった時(アカウント変更)
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
     [self getRequest];
-    NSLog(@"KVO");
+    NSLog(@"KVO1");
 }
-
-/*------------------------------------------------------------------------------ 更新処理 ここまで ------------------------------------------------------------------------------*/
 
 @end

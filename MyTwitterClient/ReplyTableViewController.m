@@ -139,7 +139,7 @@
 
 /*------------------------------------------------------------------------------ Twitter 設定ここまで ------------------------------------------------------------------------------*/
 
-/*------------------------------------------------------------------------------ Cell 設定ここから ------------------------------------------------------------------------------*/
+/*------------------------------------------------------------------------------ Cell設定 ここから ------------------------------------------------------------------------------*/
 - (UITableViewCell *)tableView:(UITableView *)tableView
          cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -189,6 +189,23 @@
     
     return cell;
 }
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+
+    if(!self.dataManager.mentions){
+        return 1;
+    } else {
+        if(self.dataManager.mentions.count >= self.update * ONCEREAD){
+            return self.update * ONCEREAD;
+        } else {
+            return (self.update * ONCEREAD) - (self.update * ONCEREAD - self.dataManager.mentions.count);
+        }
+        //return self.dataManager.mentions.count;
+    }
+}
+/*------------------------------------------------------------------------------ Cell設定 ここまで
+ ------------------------------------------------------------------------------*/
+
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     NSString *tweetText = self.dataManager.mentions[indexPath.row][@"text"];
@@ -197,26 +214,19 @@
 }
 
 
-/*------------------------------------------------------------------------------ Cell 設定ここまで ------------------------------------------------------------------------------*/
-
-/*------------------------------------------------------------------------------ 更新処理 ここから ------------------------------------------------------------------------------*/
-//pullDown 再読み込み
 - (void)onRefresh:(id)sender
 {
     // 更新開始
     [self.refreshControl beginRefreshing];
     
-    // 更新処理をここに記述
+    // 更新処理
     [self getRequest];
     // 更新終了
     [self.refreshControl endRefreshing];
 }
 
-//self.dataManeger.identifierの値が変わった時(アカウント変更)
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
     [self getRequest];
-    NSLog(@"KVO");
+    NSLog(@"KVO2");
 }
-
-/*------------------------------------------------------------------------------ 更新処理 ここまで ------------------------------------------------------------------------------*/
 @end
